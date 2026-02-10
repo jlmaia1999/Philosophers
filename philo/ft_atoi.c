@@ -6,13 +6,13 @@
 /*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:53:15 by jomaia            #+#    #+#             */
-/*   Updated: 2025/12/16 16:34:42 by jomaia           ###   ########.fr       */
+/*   Updated: 2025/12/17 15:55:35 by jomaia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *nptr)
+long	ft_atoi(const char *nptr)
 {
-	int	num;
+	long	num;
 	int	sign;
 
 	num = 0;
