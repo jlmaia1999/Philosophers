@@ -6,22 +6,21 @@
 /*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 16:25:18 by jomaia            #+#    #+#             */
-/*   Updated: 2026/02/10 14:08:21 by jomaia           ###   ########.fr       */
+/*   Updated: 2026/02/10 17:38:59 by jomaia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
 
-# include "stdio.h"
-# include "stdlib.h"
-# include "pthread.h"
-# include "unistd.h"
-# include "sys/time.h"
-# include "string.h"
-# include "stdbool.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <stdbool.h>
+# include <sys/time.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <string.h>
 
 
 typedef struct s_args
@@ -44,6 +43,7 @@ typedef struct s_waiter
 	t_mutex	*forks;
 	t_mutex	*philo;
 	t_mutex	end_mut;
+	t_mutex	msg_mut;
 	t_mutex	init_mut;
 	long	start_time;
 	int		finished_count;
@@ -69,9 +69,23 @@ typedef struct s_data
 	t_args		args;
 }	t_data;
 
-int	ft_isdigit(int c);
-int	ft_atoi(const char *nptr);
-int	parsing(int	ac, char **value, t_args *args);
+int		ft_isdigit(int c);
+int		ft_atoi(const char *nptr);
+int		parsing(int	ac, char **value, t_args *args);
+int		print_error(char *str, t_waiter *waiter);
+int		sf_malloc(void **ptr, unsigned long size);
+void	free_data(t_data *data, char *error);
+int		sf_create_mutex(t_mutex *mutex);
+void	sf_destroy_mutex(t_mutex *mutex);
+long	get_curent_time(t_waiter *waiter);
+int		init_philo(int argc, char **argv, t_data *data);
+void	msg(t_waiter *waiter, int n, char *action);
+void	msg_died(t_waiter *waiter, int n);
+void	philo_manager(t_data *data);
+void	accurate_sleep(long	delta, t_waiter *waiter);
+bool	read_end(t_waiter *waiter);
+void	set_end(t_waiter *waiter);
 
-#endif
+
+
 #endif

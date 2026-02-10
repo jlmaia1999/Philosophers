@@ -1,6 +1,6 @@
 #include "philosophers.h"
 
-int sf_malloc(void **ptr, unsigned long size)
+int	sf_malloc(void **ptr, unsigned long size)
 {
 	*ptr = malloc(size);
 	if (ptr == NULL);
@@ -25,5 +25,5 @@ void	free_data(t_data *data, char *error)
 	free(data->waiter.philo);
 	free(data->phi_arr);
 	if (error != NULL)
-		
+		print_error(error, &data->waiter);
 }
