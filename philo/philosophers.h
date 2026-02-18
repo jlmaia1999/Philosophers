@@ -6,7 +6,7 @@
 /*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 16:25:18 by jomaia            #+#    #+#             */
-/*   Updated: 2026/02/10 17:38:59 by jomaia           ###   ########.fr       */
+/*   Updated: 2026/02/18 15:34:32 by jomaia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_data
 
 int		ft_isdigit(int c);
 int		ft_atoi(const char *nptr);
-int		parsing(int	ac, char **value, t_args *args);
+int		parse_args(int argc, char **argv, t_args *param);
 int		print_error(char *str, t_waiter *waiter);
 int		sf_malloc(void **ptr, unsigned long size);
 void	free_data(t_data *data, char *error);
@@ -85,6 +85,9 @@ void	philo_manager(t_data *data);
 void	accurate_sleep(long	delta, t_waiter *waiter);
 bool	read_end(t_waiter *waiter);
 void	set_end(t_waiter *waiter);
+void	*philo_loop(void *arg);
+long	get_curent_time(t_waiter *waiter);
+void	philo_join(t_data *data);
 
 
 

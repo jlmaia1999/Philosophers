@@ -1,65 +1,57 @@
 #include "philosophers.h"
 
-int	check_number(char *s)
+static int	is_nbr(char *str, long *nbr, bool istime)
 {
-	int	i;
+	long	temp;
+	int		i;
 
 	i = 0;
-	while (s && s[i])
+	temp = 0;
+	*nbr = -1;
+	while (str[i] != '\0')
 	{
-		if (i == 0 && s[i] == '-')
-			i++;
-		if (!ft_isdigit(s[i++]))
+		if (str[i] < '0' || str[i] > '9')
 			return (0);
+		else
+			temp = temp * 10 + str[i] - '0';
+		i++;
 	}
+	*nbr = temp;
+	if (istime)
+		return (temp <= INT_MAX / 1000);
 	return (1);
 }
 
-int	check_valid(int	ac, char **value)
+static int	assign(char *str, long *nbr, bool istime, char *msg)
 {
-	int	i;
+	if (!is_nbr(str, nbr, istime))
+		return (print_error(msg, NULL));
+	return (1);
+}
 
-	i = 1;
-	if(ac < 5 || ac > 6)
-		return (0);
-	while (value && value[i])
+int	parse_args(int argc, char **argv, t_args *param)
+{
+	int	ret;
+
+	ret = 1;
+	if (argc < 5 || argc > 6)
+		return (print_error("Wrong argument count", NULL));
+	if (!assign(argv[1], &param->n_philo, false, "Parse philosopher count"))
+		ret = 0;
+	if (!assign(argv[2], &param->death_time, true, "Parse time to die"))
+		ret = 0;
+	if (!assign(argv[3], &param->eat_time, true, "Parse time to eat"))
+		ret = 0;
+	if (!assign(argv[4], &param->sleep_time, true, "Parse time to sleep"))
+		ret = 0;
+	if (argc != 6)
+		return (ret);
+	if (!assign(argv[5], &param->n_meals, false, "Parse eat count"))
+		ret = 0;
+	if (param->n_meals == 0)
 	{
-		if(!check_number(value[i++]))
-		{
-			return (0);
-		}
+		ret = 0;
+		print_error("Eat count should be bigger than 0", NULL);
 	}
-	return (1);
-}
-
-void	args_values(char **value, t_args *args)
-{
-	args->n_philo = ft_atoi(value[1]);
-	args->death_time = ft_atoi(value[2]);
-	args->eat_time = ft_atoi(value[3]);
-	args->sleep_time = ft_atoi(value[4]);
-	if (value [5])
-		args->n_meals = ft_atoi(value[5]);
-	else 
-		args->n_meals = -1;
-}
-
-int	check_sign(int ac, t_args *args)
-{
-	if (args->death_time < 0 || args->eat_time < 0 || args->n_philo < 0 ||
-		args->sleep_time < 0)
-		return (0);
-	if (args->n_meals < 0 && ac == 6)
-		return (0);
-	return (1);
-}
-
-int	parsing(int	ac, char **value, t_args *args)
-{
-	if(!check_valid(ac, value))
-		return (0);
-	args_values(value, args);
-	if (!check_sign(ac, args))
-		return (0);
-	return (1);
+	return (ret);
 }

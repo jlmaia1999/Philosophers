@@ -12,9 +12,9 @@ static bool	reached_target(t_data *data)
 	i = 0;
 	while (i < args.n_philo)
 	{
-		pthread_mutex_lock(&waiter->philo[i]);
+		pthread_mutex_lock(&waiter->philo[i].lock);
 		ret = data->phi_arr[i].eat_count == args.n_meals;
-		pthread_mutex_unlock(&waiter->philo[i]);
+		pthread_mutex_unlock(&waiter->philo[i].lock);
 		if (!ret)
 			return (false);
 		i++;
@@ -32,7 +32,7 @@ static bool	philo_died(t_data *data, int i)
 	waiter = &data->waiter;
 	args = data->args;
 	ret = false;
-	pthread_mutex_lock(&waiter->philo[1]);
+	pthread_mutex_lock(&waiter->philo[i].lock);
 	time = get_curent_time(waiter);
 	if (!data->phi_arr[i].finished)
 	{
@@ -42,7 +42,7 @@ static bool	philo_died(t_data *data, int i)
 			msg_died(waiter, data->phi_arr[i].nbr);
 		}
 	}
-	pthread_mutex_unlock(&waiter->philo[i]);
+	pthread_mutex_unlock(&waiter->philo[i].lock);
 	return (ret);
 }
 
@@ -53,9 +53,12 @@ void	philo_manager(t_data *data)
 	while (!read_end(&data->waiter))
 	{
 		i = 0;
-		while(philo_died(data, i))
-			return ;
-		i++;
+		while (i < data->args.n_philo)
+		{
+			if (philo_died(data, i))
+				return ;
+			i++;
+		}
 	}
 	if (reached_target(data))
 		return ;

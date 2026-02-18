@@ -18,6 +18,7 @@ bool	create_philo(t_data *data, int i)
 		return (0);
 	if (pthread_create(&philo->thread, NULL, philo_loop, philo))
 		return (0);
+	return (1);
 }
 
 static bool	create_philos(t_data *data)
@@ -25,7 +26,7 @@ static bool	create_philos(t_data *data)
 	int	i;
 
 	i = 0;
-	pthread_mutex_lock(&data->waiter.init_mut);
+	pthread_mutex_lock(&data->waiter.init_mut.lock);
 	while (i < data->args.n_philo)
 	{
 		if (!create_philo(data, i))
@@ -34,14 +35,14 @@ static bool	create_philos(t_data *data)
 			return (free_data(data, "Failed to create fork"), 0);
 		i++;
 	}
-	data->waiter.start_time = get_current_time(&data->waiter);
+	data->waiter.start_time = get_curent_time(&data->waiter);
 	i = 0;
 	while (i < data->args.n_philo)
 	{
 		data->phi_arr[i].last_meal = data->waiter.start_time;
 		i++;
 	}
-	pthread_mutex_unlock(&data->waiter.init_mut);
+	pthread_mutex_unlock(&data->waiter.init_mut.lock);
 	return (1);
 }
 
@@ -63,18 +64,19 @@ int	init_philo(int argc, char **argv, t_data *data)
 	memset(&data->waiter, 0, sizeof(t_waiter));
 	memset(&data->args, 0, sizeof(t_args));
 	data->args.n_meals = -1;
-	if (!parsing(argc, argv, &data->args))
+	if (!parse_args(argc, argv, &data->args))
 		return 0;
 	i = data->args.n_philo;
 	data->waiter.finished_count = i;
-	if (!sf_malloc((void **)&data->phi_arr, sizeof(t_philo) * i));
+	if (!sf_malloc((void **)&data->phi_arr, sizeof(t_philo) * i))
 		return (free_data(data, "Failed to malloc philo"), 0);
-	if (!sf_malloc((void **)&data->waiter.forks, sizeof(t_mutex)));
+	if (!sf_malloc((void **)&data->waiter.forks, sizeof(t_mutex)))
 		return (free_data(data, "Failed to malloc forks"), 0);
-	if (!sf_malloc((void **)&data->waiter.philo, sizeof(t_mutex)));
+	if (!sf_malloc((void **)&data->waiter.philo, sizeof(t_mutex)))
 		return (free_data(data, "Failed to malloc forks"), 0);
 	if (!create_mutex(data))
 		return (free_data(data, "Failed to create a mutex"), 0);
 	if (!create_philos(data))
 		return (free_data(data, "Failed to create phlos"), 0);
+	return (1);
 }

@@ -3,7 +3,7 @@
 int	sf_malloc(void **ptr, unsigned long size)
 {
 	*ptr = malloc(size);
-	if (ptr == NULL);
+	if (ptr == NULL)
 		return (0);
 	memset(*ptr, 0, size);
 	return (1);

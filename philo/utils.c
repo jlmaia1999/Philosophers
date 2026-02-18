@@ -7,7 +7,7 @@ static void	fill_buffer(char *buffer, char *str)
 
 	i = 0;
 	h = 0;
-	while(buffer[i] != 0 && i<100)
+	while(buffer[i] != 0 && i < 100)
 		i++;
 	if (i == 89)
 		write (2, "Message too big\n", 17);
@@ -33,9 +33,9 @@ int	print_error(char *str, t_waiter *waiter)
 		i++;
 	if (waiter != NULL)
 	{
-		pthread_mutex_lock(&waiter->msg_mut);
+		pthread_mutex_lock(&waiter->msg_mut.lock);
 		write(2, c, i);
-		pthread_mutex_unlock(&waiter->msg_mut);
+		pthread_mutex_unlock(&waiter->msg_mut.lock);
 	}
 	else
 		write(2, c, 1);
@@ -52,7 +52,7 @@ long	get_curent_time(t_waiter *waiter)
 		print_error("Get time error", waiter);
 		return (0);
 	}
-	current = tv.tv_sec * 1000 +tv.tv_usec / 1000;
+	current = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (current);
 }
 
