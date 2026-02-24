@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mem_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 11:00:14 by jomaia            #+#    #+#             */
+/*   Updated: 2026/02/24 11:01:29 by jomaia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 int	sf_malloc(void **ptr, unsigned long size)
@@ -11,10 +23,10 @@ int	sf_malloc(void **ptr, unsigned long size)
 
 void	free_data(t_data *data, char *error)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < data->args.n_philo)
+	while (i < data->args.n_philo)
 	{
 		sf_destroy_mutex(&data->waiter.forks[i]);
 		sf_destroy_mutex(&data->waiter.philo[i]);

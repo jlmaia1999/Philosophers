@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 11:00:26 by jomaia            #+#    #+#             */
+/*   Updated: 2026/02/24 11:02:14 by jomaia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 bool	create_philo(t_data *data, int i)
@@ -65,12 +77,12 @@ int	init_philo(int argc, char **argv, t_data *data)
 	memset(&data->args, 0, sizeof(t_args));
 	data->args.n_meals = -1;
 	if (!parse_args(argc, argv, &data->args))
-		return 0;
+		return (0);
 	i = data->args.n_philo;
 	data->waiter.finished_count = i;
 	if (!sf_malloc((void **)&data->phi_arr, sizeof(t_philo) * i))
 		return (free_data(data, "Failed to malloc philo"), 0);
-	if (!sf_malloc((void **)&data->waiter.forks, sizeof(t_mutex)* i))
+	if (!sf_malloc((void **)&data->waiter.forks, sizeof(t_mutex) * i))
 		return (free_data(data, "Failed to malloc forks"), 0);
 	if (!sf_malloc((void **)&data->waiter.philo, sizeof(t_mutex) * i))
 		return (free_data(data, "Failed to malloc forks"), 0);

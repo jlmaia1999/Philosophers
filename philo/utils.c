@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 11:00:50 by jomaia            #+#    #+#             */
+/*   Updated: 2026/02/24 11:03:53 by jomaia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 static void	fill_buffer(char *buffer, char *str)
@@ -7,7 +19,7 @@ static void	fill_buffer(char *buffer, char *str)
 
 	i = 0;
 	h = 0;
-	while(buffer[i] != 0 && i < 100)
+	while (buffer[i] != 0 && i < 100)
 		i++;
 	if (i == 89)
 		write (2, "Message too big\n", 17);
@@ -56,7 +68,7 @@ long	get_curent_time(t_waiter *waiter)
 	return (current);
 }
 
-void	accurate_sleep(long	delta, t_waiter *waiter)
+void	accurate_sleep(long delta, t_waiter *waiter)
 {
 	long	start;
 

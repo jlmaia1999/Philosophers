@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   waiter.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 11:00:53 by jomaia            #+#    #+#             */
+/*   Updated: 2026/02/24 11:04:18 by jomaia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 static bool	reached_target(t_data *data)
@@ -36,7 +48,7 @@ static bool	philo_died(t_data *data, int i)
 	time = get_curent_time(waiter);
 	if (!data->phi_arr[i].finished)
 	{
-		if(time > data->phi_arr[i].last_meal + args.death_time)
+		if (time > data->phi_arr[i].last_meal + args.death_time)
 		{
 			ret = true;
 			msg_died(waiter, data->phi_arr[i].nbr);
@@ -62,5 +74,4 @@ void	philo_manager(t_data *data)
 		if (reached_target(data))
 			return ;
 	}
-
 }

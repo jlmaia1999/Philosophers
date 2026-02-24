@@ -6,7 +6,7 @@
 /*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 16:25:18 by jomaia            #+#    #+#             */
-/*   Updated: 2026/02/18 15:34:32 by jomaia           ###   ########.fr       */
+/*   Updated: 2026/02/24 11:03:18 by jomaia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <string.h>
-
 
 typedef struct s_args
 {
@@ -82,13 +81,11 @@ int		init_philo(int argc, char **argv, t_data *data);
 void	msg(t_waiter *waiter, int n, char *action);
 void	msg_died(t_waiter *waiter, int n);
 void	philo_manager(t_data *data);
-void	accurate_sleep(long	delta, t_waiter *waiter);
+void	accurate_sleep(long delta, t_waiter *waiter);
 bool	read_end(t_waiter *waiter);
 void	set_end(t_waiter *waiter);
 void	*philo_loop(void *arg);
 long	get_curent_time(t_waiter *waiter);
 void	philo_join(t_data *data);
-
-
 
 #endif

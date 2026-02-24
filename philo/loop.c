@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loop.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 11:00:10 by jomaia            #+#    #+#             */
+/*   Updated: 2026/02/24 11:06:54 by jomaia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 static void	update_time(t_philo *philo, t_waiter *waiter)
@@ -11,7 +23,7 @@ static bool	update_eat_count(t_philo *philo, t_waiter *waiter)
 {
 	bool	finished;
 
-	pthread_mutex_lock(&waiter->philo[philo->nbr-1].lock);
+	pthread_mutex_lock(&waiter->philo[philo->nbr - 1].lock);
 	philo->eat_count++;
 	philo->finished = philo->eat_count == philo->args.n_meals;
 	finished = philo->finished;
@@ -19,7 +31,7 @@ static bool	update_eat_count(t_philo *philo, t_waiter *waiter)
 	return (finished);
 }
 
-static bool eat_cycle(t_philo *philo)
+static bool	eat_cycle(t_philo *philo)
 {
 	t_waiter	*waiter;
 	bool		finished;
@@ -58,7 +70,7 @@ void	*philo_loop(void *arg)
 	while (!read_end(philo->waiter))
 	{
 		if (eat_cycle(philo))
-			break;
+			break ;
 		msg(waiter, philo->nbr, "is sleeping");
 		accurate_sleep(philo->args.sleep_time, waiter);
 		msg (waiter, philo->nbr, "is thinking");
