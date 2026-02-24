@@ -70,9 +70,9 @@ int	init_philo(int argc, char **argv, t_data *data)
 	data->waiter.finished_count = i;
 	if (!sf_malloc((void **)&data->phi_arr, sizeof(t_philo) * i))
 		return (free_data(data, "Failed to malloc philo"), 0);
-	if (!sf_malloc((void **)&data->waiter.forks, sizeof(t_mutex)))
+	if (!sf_malloc((void **)&data->waiter.forks, sizeof(t_mutex)* i))
 		return (free_data(data, "Failed to malloc forks"), 0);
-	if (!sf_malloc((void **)&data->waiter.philo, sizeof(t_mutex)))
+	if (!sf_malloc((void **)&data->waiter.philo, sizeof(t_mutex) * i))
 		return (free_data(data, "Failed to malloc forks"), 0);
 	if (!create_mutex(data))
 		return (free_data(data, "Failed to create a mutex"), 0);

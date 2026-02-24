@@ -38,7 +38,7 @@ int	print_error(char *str, t_waiter *waiter)
 		pthread_mutex_unlock(&waiter->msg_mut.lock);
 	}
 	else
-		write(2, c, 1);
+		write(2, c, i);
 	return (0);
 }
 

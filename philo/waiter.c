@@ -59,7 +59,8 @@ void	philo_manager(t_data *data)
 				return ;
 			i++;
 		}
+		if (reached_target(data))
+			return ;
 	}
-	if (reached_target(data))
-		return ;
+
 }

@@ -4,7 +4,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	memset(&data, 0, sizeof(t_args));
+	memset(&data, 0, sizeof(t_data));
 	if (init_philo(argc, argv, &data))
 	{
 		philo_manager(&data);

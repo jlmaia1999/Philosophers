@@ -2,7 +2,7 @@ NAME := philo
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -g -pthread
 OBJDIR := objs
-SRCS := end_utils.c ft_atoi.c ft_isdigit.c loop.c mem_utils.c messages.c mutex_utils.c philo_init.c philo_join.c philo_parsing.c philosophers.c utils.c waiter.c
+SRCS := end_utils.c loop.c mem_utils.c messages.c mutex_utils.c philo_init.c philo_join.c philo_parsing.c philosophers.c utils.c waiter.c
 OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 
 all: $(NAME)
