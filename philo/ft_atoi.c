@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_utils.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 10:59:59 by jomaia            #+#    #+#             */
-/*   Updated: 2026/02/24 11:05:14 by jomaia           ###   ########.fr       */
+/*   Created: 2025/04/14 16:53:15 by jomaia            #+#    #+#             */
+/*   Updated: 2026/03/03 13:29:56 by jomaia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
-void	set_end(t_waiter *waiter)
+int	ft_atoi(const char *nptr)
 {
-	pthread_mutex_lock(&waiter->end_mut.lock);
-	waiter->end = true;
-	pthread_mutex_unlock(&waiter->end_mut.lock);
-}
+	int	num;
+	int	sign;
 
-bool	read_end(t_waiter *waiter)
-{
-	bool	ret;
-
-	pthread_mutex_lock(&waiter->end_mut.lock);
-	ret = waiter->end;
-	pthread_mutex_unlock(&waiter->end_mut.lock);
-	return (ret);
+	num = 0;
+	sign = 1;
+	while (*nptr == ' ' || (*nptr > 8 && *nptr < 14))
+		nptr++;
+	if (*nptr == '-' || *nptr == '+')
+	{
+		if (*nptr == '-')
+			sign = -sign;
+		nptr++;
+	}
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		num = num * 10;
+		num = num + (*nptr - '0');
+		nptr++;
+	}
+	num = num * sign;
+	return (num);
 }
