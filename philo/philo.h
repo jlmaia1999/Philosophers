@@ -6,7 +6,7 @@
 /*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 13:15:40 by jomaia            #+#    #+#             */
-/*   Updated: 2026/03/03 13:32:20 by jomaia           ###   ########.fr       */
+/*   Updated: 2026/03/05 15:35:54 by jomaia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@
 # include "pthread.h"
 # include "sys/time.h"
 # include "stdbool.h"
+# include <string.h>
+
+typedef struct	s_mutex
+{
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	msg_mutex;
+	pthread_mutex_t	eat_mutex;
+	pthread_mutex_t	death_mutex;
+}	t_mutex;
+
+typedef struct	s_philo
+{
+	t_mutex	*forks;
+}	t_philo;
 
 typedef struct	s_params
 {
@@ -33,9 +47,15 @@ typedef	struct s_waiter
 {
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*philo;
-	
 }	t_waiter;
 
-int	ft_atoi(const char *nptr);
+typedef struct s_master
+{
+	t_params	*params;
+}	t_philo;
+
+
+int		ft_atoi(const char *nptr);
+bool	parsing(int argc, char **argv, t_params *params);
 
 #endif

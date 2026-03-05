@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/03 13:15:37 by jomaia            #+#    #+#             */
-/*   Updated: 2026/03/05 15:26:18 by jomaia           ###   ########.fr       */
+/*   Created: 2026/03/05 12:01:12 by jomaia            #+#    #+#             */
+/*   Updated: 2026/03/05 15:24:28 by jomaia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int argc, char **argv)
+void	philo_init(t_params params)
 {
-	t_master	*master;
-
-	memset(master, 0, sizeof(t_master));
-	if (!parsing(argc, argv, master->params))
-	{
-		
-	}
+	
 }

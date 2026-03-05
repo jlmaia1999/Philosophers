@@ -6,7 +6,7 @@
 /*   By: jomaia <jomaia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 13:15:35 by jomaia            #+#    #+#             */
-/*   Updated: 2026/03/03 13:58:32 by jomaia           ###   ########.fr       */
+/*   Updated: 2026/03/05 11:58:25 by jomaia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,18 @@ static int	check_valid(char *arg)
 	return (true);
 }
 
-
-
-int	parsing(int argc, char **argv, t_params *params)
+static void	assign(char **argv, t_params *params)
 {
+	params->n_philo = ft_atoi(argv[1]);
+	params->delta_death = ft_atoi(argv[2]);
+	params->delta_eat = ft_atoi(argv[3]);
+	params->delta_sleep = ft_atoi(argv[4]);
+	if (argv[5])
+		params->_n_meals = ft_atoi(argv[5]);
+}
 
+bool	parsing(int argc, char **argv, t_params *params)
+{
 	if (argc < 5 || argc > 6)
 		return (0);
 	if (!check_valid(argv[1]))
@@ -37,4 +44,8 @@ int	parsing(int argc, char **argv, t_params *params)
 		return (printf("Invalid time to eat\n"), 0);
 	if (!check_valid(argv[4]))
 		return (printf("Invalid time to sleep\n"), 0);
+	if (argv[5])
+		if (!check_valid(argv[5]))
+			return (printf("Invalid number of repetitions\n"), 0);
+	return (1);
 }
